@@ -26,8 +26,8 @@ This application allows you to control YouTube videos using hand gestures. By le
 #### **How to Run**
 1. Clone the repository:
    ```bash
-   git clone 
-   cd <repository-folder>
+   git clone https://github.com/solve-ease/WavePlay.git
+   cd WavePlay
    ```
 2. Install dependencies using `requirements.txt`:
    ```bash
