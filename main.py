@@ -1,35 +1,24 @@
 import cv2
 import mediapipe as mp
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+import pyautogui
 import time
 
 def play_pause():
-    video = driver.find_element(By.TAG_NAME, "video")
-    video.send_keys(Keys.SPACE)  # Spacebar toggles play/pause
+    pyautogui.press('space')  # Spacebar toggles play/pause
 
 def like_video():
-    like_button = driver.find_element(By.XPATH, '//button[@aria-label="Like this video"]')
-    like_button.click()
+    pyautogui.hotkey('shift', '+')  # Simulate Shift++ to like the video
 
 def forward_video():
-    video = driver.find_element(By.TAG_NAME, "video")
-    video.send_keys(Keys.ARROW_RIGHT)  # Forward 10 seconds
+    pyautogui.press('right')  # Forward 10 seconds
 
 def rewind_video():
-    video = driver.find_element(By.TAG_NAME, "video")
-    video.send_keys(Keys.ARROW_LEFT)  # Rewind 10 seconds
+    pyautogui.press('left')  # Rewind 10 seconds
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.7)
 mp_drawing = mp.solutions.drawing_utils
-
-# Initialize Selenium
-driver = webdriver.Chrome()  # Use the appropriate WebDriver
-driver.get("https://www.youtube.com")
-time.sleep(5)  # Wait for the page to load
 
 # Open the camera
 cap = cv2.VideoCapture(0)
@@ -66,7 +55,13 @@ while cap.isOpened():
                 print("Gesture: Open Hand")
                 play_pause()  # Play/Pause the video
 
+    # Display the image
+    cv2.imshow('Hand Gesture Control', image)
+
+    # Break the loop if 'q' is pressed
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
 # Release resources
 cap.release()
 cv2.destroyAllWindows()
-driver.quit()  # Close the browser
