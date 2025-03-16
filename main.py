@@ -43,9 +43,10 @@ while cap.isOpened():
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
     if results.multi_hand_landmarks:
+        print("hey")
         for hand_landmarks in results.multi_hand_landmarks:
             # Draw hand landmarks
-            mp_drawing.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+            # mp_drawing.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
             # Get the coordinates of specific landmarks
             index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
@@ -55,7 +56,7 @@ while cap.isOpened():
             distance = ((index_tip.x - thumb_tip.x) ** 2 + (index_tip.y - thumb_tip.y) ** 2) ** 0.5
 
             # Detect gestures based on distance
-            # if distance < 0.05:
+            # if distance < 0.1:
             #     print("Gesture: Thumbs Up")
             #     like_video()  # Like the video
             if distance > 0.1 and state:
